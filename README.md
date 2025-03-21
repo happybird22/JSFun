@@ -12,7 +12,7 @@ Second:
 -Due Dates
 Use bolean to say if assignments due = true or not
 
--Learner Submissions Groups -- Arrays or Objects?
+-Learner Submissions Groups into Objects
 Organize by learner_id
 
 Third:
@@ -20,7 +20,7 @@ Third:
 -Process the assignment submissions
 1 late assignments - submitted after the due_at take 10% off points_possible
 2 score/possible_points = grade in percentage
-3 store grade under assignment ID in that learners array or object... probs object
+3 store grade under assignment ID in that learners object
 
 Fourth:
 
@@ -51,7 +51,7 @@ Fifth:
 
 Sixth:
 
--HelpFunctions??
+-Helper Functions??
 1 function isLate (submitted_at, due_at)
 2 function calcPercentage
 3 function calcWeightedAvg

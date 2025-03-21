@@ -99,3 +99,20 @@ const CourseInfo = {
   const result = getLearnerData(CourseInfo, AssignmentGroup, LearnerSubmissions);
   
   console.log(result);
+
+  function validateData(course, ag) {
+    try {
+        if (ag.course_id !== course.id) {
+            throw new Error(`Invalid Assignment`);
+        }
+        ag.assignments.forEach((assignment) => {
+            if (typeof assignments.points_possible !== "number" || assignment.points_possible <= 0) {
+                throw new Error(`Invalid possible points for assignment ${assignment.id}`)
+            }
+            
+        });
+    } catch (error) {
+        console.error(`Validation Error:`, error.message);
+        throw error;
+    }
+  }
