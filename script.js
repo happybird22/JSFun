@@ -116,3 +116,21 @@ const CourseInfo = {
         throw error;
     }
   }
+//Booleans to filter due dates for assigments
+  const isDue = new Date(assignment.due_at) <= new Date();
+  const isLate = new Date(submission.submitted_at) > new Date(assignment.due_at);
+
+  for (let submission of submissions) {
+    const assignment = filteredAssignments.find(a => a.id === submission.assignment_id);
+    if (!assignment) continue;
+    const dueDate = new Date(assignment.due_at);
+    const submittedDate = new Date(submission.submitted_at);
+    const isLate = submittedDate > dueDate;
+
+    let score = submission.submission.score;
+    if (isLate) {
+        score -= assignment.points_possible * 0.1;
+    }
+  }
+
+  
