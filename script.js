@@ -176,9 +176,32 @@ function getLearnerData(course, ag, submissions) {
     }
 
     for (let i = 0; i < submissions.lenght; i++) {
-        if (ag.assignments[i].id === assignmentId) {
-            return ag.assignments[i];
+        const sub = submissions[i];
+        const assignment = findAssignment(sub.assignment_id);
+
+        if (!assignment) {
+            console.warn(`Assignment ID ${sub.assignment_Id} not found`);
+            continue;
         }
+
+        if (isLate(assignment.due_at, todayDate)) {
+            continue;
+        }
+        if (typeof assignment.points_possible !== "number" || assignments.points_possible === 0) {
+            console.warn(`Invalid scoring for assignment ID ${assignment.id}`);
+            continue;
+        }
+
+        let score = sub.submission.score;
+
+        if (isLate(sub.submission.submitted_at, assignment.due_at)) {
+            score -= 0.1 * assignment.points_possible;
+            if (score < 0) score = 0;
+        }
+
+        const percentage = score / assignment.points_possible;
     }
-    return null;
+    
+
+
 }
