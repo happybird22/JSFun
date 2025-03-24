@@ -200,6 +200,16 @@ function getLearnerData(course, ag, submissions) {
         }
 
         const percentage = score / assignment.points_possible;
+
+        if (!learners[sub.learner_id]) {
+            learners[sub.learner_id] = {
+                id: sub.learner_id,
+                totalScore: 0,
+                totalPoints: 0
+            };
+        }
+
+        
     }
     
 
