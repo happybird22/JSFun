@@ -209,9 +209,21 @@ function getLearnerData(course, ag, submissions) {
             };
         }
 
+        learners[sub.learner_id][assignment.id] = parseFloat(percentage.toFixed(3));
+        learners[sub.learner_id].totalScore += score;
+        learners[sub.learner_id].totalPoints += assignment.points_possible;
         
     }
     
+    const result = []
+    for (let key in learners) {
+        const learner = learners[key];
+        const avg = learner.totalScore / learner.points_possible;
+        learner.avg = parseFloat(avg.toFixed(3));
+        delete learner.totalScore;
+        delete learner.totalPoints;
+        result.push(learner);
+    }
 
-
+    return result;
 }
