@@ -146,7 +146,7 @@ function getLearnerData(course, ag, submissions) {
         const todayDate = "2025-03-22";
         const learners ={};
 
-        function isLate(dueDate, subDate)
+        function isLate(dueDate, subDate) {
         const part1 = subDate.split("-");
         const part2 = dueDate.split("-");
 
@@ -166,7 +166,7 @@ function getLearnerData(course, ag, submissions) {
         if (day1 < day2) return false;
     }
 
-    function findAssingment(assignmentId) {
+        function findAssingment(assignmentId) {
         for (let i= 0; i < ag.assignments.length; i++) {
             if (ag.assignments[i].id === assignmentId) {
                 return ag.assignments[i];
@@ -226,4 +226,11 @@ function getLearnerData(course, ag, submissions) {
     }
 
     return result;
+} catch (err) {
+    console.error("Error:", err.message);
+    return[]
+}
+
+const result = getLearnerData(CourseInfo, AssignmentGroup, LearnerSubmissions);
+console.log(result)
 }
