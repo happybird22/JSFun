@@ -76,61 +76,109 @@ const CourseInfo = {
     }
   ];
   
-  function getLearnerData(course, ag, submissions) {
-    // here, we would process this data to achieve the desired result.
-    const result = [
-      {
-        id: 125,
-        avg: 0.985, // (47 + 150) / (50 + 150)
-        1: 0.94, // 47 / 50
-        2: 1.0 // 150 / 150
-      },
-      {
-        id: 132,
-        avg: 0.82, // (39 + 125) / (50 + 150)
-        1: 0.78, // 39 / 50
-        2: 0.833 // late: (140 - 15) / 150
-      }
-    ];
+//   function getLearnerData(course, ag, submissions) {
+//     // here, we would process this data to achieve the desired result.
+//     const result = [
+//       {
+//         id: 125,
+//         avg: 0.985, // (47 + 150) / (50 + 150)
+//         1: 0.94, // 47 / 50
+//         2: 1.0 // 150 / 150
+//       },
+//       {
+//         id: 132,
+//         avg: 0.82, // (39 + 125) / (50 + 150)
+//         1: 0.78, // 39 / 50
+//         2: 0.833 // late: (140 - 15) / 150
+//       }
+//     ];
   
-    return result;
-  }
+//     return result;
+//   }
   
-  const result = getLearnerData(CourseInfo, AssignmentGroup, LearnerSubmissions);
+//   const result = getLearnerData(CourseInfo, AssignmentGroup, LearnerSubmissions);
   
-  console.log(result);
+//   console.log(result);
 
-  function validateData(course, ag) {
+//   function validateData(course, ag) {
+//     try {
+//         if (ag.course_id !== course.id) {
+//             throw new Error(`Invalid Assignment`);
+//         }
+//         ag.assignments.forEach((assignment) => {
+//             if (typeof assignments.points_possible !== "number" || assignment.points_possible <= 0) {
+//                 throw new Error(`Invalid possible points for assignment ${assignment.id}`)
+//             }
+            
+//         });
+//     } catch (error) {
+//         console.error(`Validation Error:`, error.message);
+//         throw error;
+//     }
+//   }
+
+
+// //Booleans to filter due dates for assigments
+//   const isDue = new Date(assignment.due_at) <= new Date();
+//   const isLate = new Date(submission.submitted_at) > new Date(assignment.due_at);
+
+//   for (let submission of submissions) {
+//     const assignment = filteredAssignments.find(a => a.id === submission.assignment_id);
+//     if (!assignment) continue;
+//     const dueDate = new Date(assignment.due_at);
+//     const submittedDate = new Date(submission.submitted_at);
+//     const isLate = submittedDate > dueDate;
+
+//     let score = submission.submission.score;
+//     if (isLate) {
+//         score -= assignment.points_possible * 0.1;
+//     }
+//   }
+
+//   let learnersData = {};
+
+function getLearnerData(course, ag, submissions) {
     try {
         if (ag.course_id !== course.id) {
-            throw new Error(`Invalid Assignment`);
+            throw new error(`Invalid Assignment`);
         }
-        ag.assignments.forEach((assignment) => {
-            if (typeof assignments.points_possible !== "number" || assignment.points_possible <= 0) {
-                throw new Error(`Invalid possible points for assignment ${assignment.id}`)
+
+        const todayDate = "2025-03-22";
+        const learners ={};
+
+        function isLate(dueDate, subDate)
+        const part1 = subDate.split("-");
+        const part2 = dueDate.split("-");
+
+        const year1 = parseInt(part1[0]);
+        const month1 = parseInt(part1[1]);
+        const day1 = parseInt(part1[2]);
+
+        const year2 = parseInt(part2[0]);
+        const month2 = parseInt(part2[1]);
+        const day2 = parseInt(part2[2]);
+
+        if (year1 > year2) return true;
+        if (year1 < year2) return false;
+        if (month1 > month2) return true;
+        if (month1 < month2) return false;
+        if (day1 > day2) return true;
+        if (day1 < day2) return false;
+    }
+
+    function findAssingment(assignmentId) {
+        for (let i= 0; i < ag.assignments.length; i++) {
+            if (ag.assignments[i].id === assignmentId) {
+                return ag.assignments[i];
             }
-            
-        });
-    } catch (error) {
-        console.error(`Validation Error:`, error.message);
-        throw error;
+        }
+        return null;
     }
-  }
-//Booleans to filter due dates for assigments
-  const isDue = new Date(assignment.due_at) <= new Date();
-  const isLate = new Date(submission.submitted_at) > new Date(assignment.due_at);
 
-  for (let submission of submissions) {
-    const assignment = filteredAssignments.find(a => a.id === submission.assignment_id);
-    if (!assignment) continue;
-    const dueDate = new Date(assignment.due_at);
-    const submittedDate = new Date(submission.submitted_at);
-    const isLate = submittedDate > dueDate;
-
-    let score = submission.submission.score;
-    if (isLate) {
-        score -= assignment.points_possible * 0.1;
+    for (let i = 0; i < submissions.lenght; i++) {
+        if (ag.assignments[i].id === assignmentId) {
+            return ag.assignments[i];
+        }
     }
-  }
-
-  
+    return null;
+}
